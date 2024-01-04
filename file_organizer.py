@@ -21,7 +21,7 @@ def rapih(src, dst):
             shutil.move(path, final_file_path)      # perintah pindahin file berantakan
             
         else: # kondisi jika bukan file / adalah direktori
-            print(f"Bukan file --> {file_path}")
+            print(f"Bukan file --> {path}")
 
 if __name__ == "__main__":
     src = "C:/Users/Administrator/Downloads"
