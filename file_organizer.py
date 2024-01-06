@@ -1,30 +1,48 @@
 import os
 import shutil
 
-def rapih(src, dst):
-    # perintah untuk mendapatkan semua files termasuk direktori di simpan di <files>
-    files = os.listdir(src)
+class Organizer():
+    def __init__(self, src, dst):
+        self.name        = "Organize files based on its extensions."
+        self.source      = src
+        self.destination = dst
 
-    # ambil setiap file termasuk direktori
-    for file in files:
-        path = os.path.join(src, file) # jalur file & direktori
+    def move(self):
+        # get all directories
+        files = os.listdir(self.source)
 
-        # perkondisian jika terdeteksi file atau bukan direktori
-        if os.path.isfile(path): 
-            name, ext = os.path.splitext(path)      # (nama file, ekstensi file) (tuple)
-            file_path = f"{dst}/{ext[1:]}"          # jalur direktori file per ekstensi
-          
-            os.makedirs(file_path, exist_ok= True)  # perintah untuk membuat direktori + jika sudah ada
-            
-            final_file_path = f"{file_path}/{file}" # jalur file terakhir disimpan
+        for file in files:
+            dir = os.path.join(self.source, file) # folder directories
 
-            shutil.move(path, final_file_path)      # perintah pindahin file berantakan
-            
-        else: # kondisi jika bukan file / adalah direktori
-            print(f"Bukan file --> {path}")
+            # conditional statements for getting regular files
+            if os.path.isfile(dir):
+                # split root (name) and extension (ext)
+                name, ext = os.path.splitext(dir)
+                # folder extensions
+                dir_file_ext = f"{self.destination}/{ext[1:]}"
+                
+                os.makedirs(dir_file_ext, exist_ok = True)
+
+                # file paths
+                file_path = f"{dir_file_ext}/{file}"
+
+                # move all directories to file_path
+                shutil.move(dir, file_path)
+
+    def run(self):
+        self.move()
+        print(f"Status     : {bool(self.move)} ")
+        print(f"Source     : {self.source}     ")
+        print(f"Destination: {self.destination}")
 
 if __name__ == "__main__":
+    # Set source and destination. 
     src = "C:/Users/Administrator/Downloads"
-    dst = f"{src}/rapih"
+    # Creating 'new_folder' in variable instead of create manually
+    dst = f"{src}/new_folder"
 
-    rapih(src, dst)
+    # create your own object
+    organize = Organizer(src, dst)
+
+    # run your program :)
+    organize.run()
