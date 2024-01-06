@@ -31,7 +31,6 @@ class Organizer():
 
     def run(self):
         self.move()
-        print(f"Status     : {bool(self.move)} ")
         print(f"Source     : {self.source}     ")
         print(f"Destination: {self.destination}")
 
